@@ -14,6 +14,32 @@ void initRendering() {
 	glEnable(GL_DEPTH_TEST);
 }
 
+//for text
+void drawStrokeText(char*string,float x)
+{
+	  char *c;
+	  glPushMatrix();
+	  glTranslatef(-x, 2.3, 0.0);
+      glScalef(0.001f,0.0014f,0);
+
+	  for (c=string; *c != '\0'; c++)
+	  {
+    		glutStrokeCharacter(GLUT_STROKE_ROMAN , *c);
+	  }
+	  glPopMatrix();
+}
+
+//rander text
+void render(float x)
+{
+
+
+	glColor3f(1,1,1);
+	drawStrokeText("Press w or (space)=jump, a=move-left, d=move-right, p=pause, s=start",x);
+	glutPostRedisplay();
+
+}
+
 
 //Called when the window is resized
 void handleResize(int w, int h) {
@@ -27,7 +53,7 @@ float _angle = 0.0;
 float _cameraAngle = 0.0;
 float _ang_tri = 0.0;
 float pixel=0,ballPlace=0,ballUp=-0.2;
-int wSize=400,gameOn=1,timeFlag;
+int wSize=400,gameOn=1,timeFlag,timeFlagForText=0;
 
 
 void keyboard(unsigned char key, int x, int y)
@@ -82,6 +108,11 @@ void drawScene() {
 	glRotatef(-_cameraAngle, 0.0, 1.0, 0.0); //Rotate the camera
 	glTranslatef(0.0, 0.0, -7.0); //Move forward 5 units
 
+    if(timeFlagForText<300)
+    {
+        render(2.5);
+    }
+
 
 	//ball
     glPushMatrix();
@@ -91,7 +122,6 @@ void drawScene() {
     glColor3f(0,1,0);
     glutSolidSphere(.5 ,20,20);
     glPopMatrix();
-
 
 
     glPushMatrix();
@@ -1369,8 +1399,6 @@ glPopMatrix();
 
 
 
-
-
     glPopMatrix();
 
 
@@ -1407,6 +1435,9 @@ void update(int value) {
         }
         timeFlag++;
     }
+
+        timeFlagForText++;
+
     glutTimerFunc(25, update, 0);
 }
 
