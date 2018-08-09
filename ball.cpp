@@ -1,17 +1,26 @@
 #include <iostream>
 #include <stdlib.h>
 #include <math.h>
-
+#include <cstdlib>
+#include <ctime>
 
 #include <GL/glu.h>
 #include <GL/glut.h>
 
 
 
-
 //Initializes 3D rendering
 void initRendering() {
 	glEnable(GL_DEPTH_TEST);
+}
+
+
+//random number generator
+float getRamdomNum(float min, float max){
+	srand((unsigned)time(0));
+	float range = (max - min);
+	float rand_num = min + float((range * rand()) / (RAND_MAX + 1.0));
+	return rand_num;
 }
 
 //for text
@@ -1442,6 +1451,8 @@ void update(int value) {
 }
 
 int main(int argc, char** argv) {
+	std::cout<<getRamdomNum(3.0, 3.5)<<std::endl;
+
 	//Initialize GLUT
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
