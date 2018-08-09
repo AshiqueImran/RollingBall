@@ -8,7 +8,7 @@
 #include <GL/glut.h>
 
 
-
+GLint WindowID1;
 //Initializes 3D rendering
 void initRendering() {
 	glEnable(GL_DEPTH_TEST);
@@ -102,9 +102,10 @@ void keyboard(unsigned char key, int x, int y)
             timeFlag=0;
             glutPostRedisplay();
         }
-
-
     }
+		else if (key == 'x') {
+			glutDestroyWindow(WindowID1);
+		}
 
 }
 
@@ -1460,7 +1461,9 @@ int main(int argc, char** argv) {
 	glutInitWindowPosition(200,100);
 
 	//Create the window
-	glutCreateWindow("Transformations");
+	WindowID1 = glutCreateWindow("Transformations");
+	glutFullScreen();
+
 	initRendering();
 
 	//Set handler functions
