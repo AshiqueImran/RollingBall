@@ -93,8 +93,7 @@ void keyboard(unsigned char key, int x, int y)
 #include "scene_and_ball.cpp"
 // #include "build_and_roll_objects.cpp"
 #include "car.cpp"
-
-
+#include "car2.cpp"
 //Draws the 3D scene
 void drawScene() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -107,8 +106,8 @@ void drawScene() {
     {
         render(2.5);
     }
-		drawCar();
-
+		drawCar1();
+		drawCar2();
 		//buildlings, road, ball
 		buildSceneAndBall();
 
@@ -176,8 +175,8 @@ int main(int argc, char** argv) {
 	glutReshapeFunc(handleResize);
 
 	glutTimerFunc(20, update, 0); //Add a timer
-	// //
 	glutTimerFunc(5, updateCar, 0);
+	glutTimerFunc(10, updateCar2, 0);
 
     glutKeyboardFunc(keyboard);
 	glutMainLoop();

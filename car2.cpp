@@ -1,21 +1,22 @@
-float car_angle = 0.0;
-float car_cameraAngle = 0.0;
-float car_ang_tri = 0.0;
-float car_move_x = -2.0;
-float car_move_y = -.7;
+float car2_angle = 0.0;
+float car2_cameraAngle = 0.0;
+float car2_ang_tri = 0.0;
+float car2_move_x = -2.0;
+float car2_move_y = -1.7;
 
-float _car_color_r = 1.0;
-float _car_color_g = 0.0;
-float _car_color_b = 0.0;
+float _car2_color_r = 0.0;
+float _car2_color_g = 0.0;
+float _car2_color_b = 1.0;
+
 
 //Draws the 3D scene
-void drawCar1() {
+void drawCar2() {
     glPushMatrix();
-      glTranslatef(car_move_x, car_move_y, 0.0);
+      glTranslatef(car2_move_x, car2_move_y, 0.0);
       glScalef(.7, .7, .7);
       glPushMatrix();
         glTranslatef(0.0, -0.2, 0.0);
-        glColor3f(_car_color_r, 0.0, 1.0);
+        glColor3f(_car2_color_r, 0.0, 1.0);
         glBegin(GL_LINES);
         //line
         glVertex3f(0.15, 0.5, 0.0);
@@ -27,7 +28,7 @@ void drawCar1() {
        glPushMatrix();
            glTranslatef(0.0, .35, 0.0);
            glRotatef(_angle, 0.0, 0.0, 1.0); //Rotate about the the vector (1, 2, 3)
-           glColor3f(_car_color_r, _car_color_g, _car_color_b);
+           glColor3f(_car2_color_b, _car2_color_r, _car2_color_g);
            glutSolidSphere(.15 ,20,20);
            glEnd();
        glPopMatrix();
@@ -36,7 +37,7 @@ void drawCar1() {
         glPushMatrix();
             glTranslatef(0.70, .35, 0.0);
             glRotatef(_angle, 0.0, 0.0, 1.0); //Rotate about the the vector (1, 2, 3)
-            glColor3f(_car_color_r, _car_color_g, _car_color_b);
+            glColor3f(_car2_color_b, _car2_color_r, _car2_color_g);
             glutSolidSphere(.15 ,20,20);
             glEnd();
         glPopMatrix();
@@ -53,20 +54,20 @@ void drawCar1() {
     glPopMatrix();
 }
 
-void updateCar(int value) {
-	car_angle += 2.0f;
-	if (car_angle > 360) {
-		car_angle -= 360;
+
+void updateCar2(int value) {
+	car2_angle += 2.0f;
+	if (car2_angle > 360) {
+		car2_angle -= 360;
 	}
-    car_move_x += 0.15f;
-    if(car_move_x > 6.0){
-        car_move_x = -7.0;
-        _car_color_r = getRamdomNum(-1.0, 1.0, .5);
-  			_car_color_g = getRamdomNum(-2.0, 2.0, .5);
-  			_car_color_b = getRamdomNum(-2.0, 2.0, .5);
-        car_move_y = getRamdomNum(-.5, -1.0, 0.5);
+    car2_move_x += 0.2f;
+    if(car2_move_x > 6.0){
+        car2_move_x = -7.0;
+        _car2_color_r = getRamdomNum(-1.0, 1.0, .5);
+  			_car2_color_g = getRamdomNum(-1.0, 1.0, .5);
+  			_car2_color_b = getRamdomNum(-1.0, 1.0, .5);
+        // car_move_y = getRamdomNum(-1.5, -1.0, 0.5);
     }
 
-
-	glutTimerFunc(5, updateCar, 0);
+	glutTimerFunc(10, updateCar2, 0);
 }
