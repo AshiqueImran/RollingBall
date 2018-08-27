@@ -14,10 +14,6 @@
 #  include <GL/freeglut.h>
 #endif
 
-// custom opengl stuffs
-//#include "car.cpp"
-
-
 GLint WindowID1;
 //Initializes 3D rendering
 void initRendering() {
@@ -49,7 +45,7 @@ float _angle = 0.0;
 float _cameraAngle = 0.0;
 float _ang_tri = 0.0;
 float pixel=0,ballPlace=0,ballUp=-0.2;
-int wSize=400,gameOn=1,timeFlag,timeFlagForText=0;
+int wSize=600,gameOn=1,timeFlag,timeFlagForText=0;
 
 
 void keyboard(unsigned char key, int x, int y)
@@ -97,12 +93,12 @@ void keyboard(unsigned char key, int x, int y)
 
 #include "scene_and_ball.cpp"
 #include "build_and_roll_objects.cpp"
+// #include "car.cpp"
 
 
 //Draws the 3D scene
 void drawScene() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	glMatrixMode(GL_MODELVIEW); //Switch to the drawing perspective
 	glLoadIdentity(); //Reset the drawing perspective
 	glRotatef(-_cameraAngle, 0.0, 1.0, 0.0); //Rotate the camera
@@ -116,6 +112,7 @@ void drawScene() {
 		//buildlings, road, ball
 		buildSceneAndBall();
 
+		// drawCar();
 		//build objects and roll 'em
 		// buildAndRollObjects();
 
@@ -165,7 +162,7 @@ int main(int argc, char** argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(wSize, wSize);
-	glutInitWindowPosition(200,100);
+	glutInitWindowPosition(300,100);
 
 	//Create the window
 	WindowID1 = glutCreateWindow("Transformations");
@@ -178,8 +175,10 @@ int main(int argc, char** argv) {
 
 	glutReshapeFunc(handleResize);
 
-	glutTimerFunc(10, update, 0); //Add a timer
+	// glutTimerFunc(10, update, 0); //Add a timer
 	glutTimerFunc(10, updateObjects, 0); //Add a timer
+
+	// glutTimerFunc(10, updateCar, 0);
 
     glutKeyboardFunc(keyboard);
 	glutMainLoop();
