@@ -9,8 +9,8 @@ void drawCar() {
 	// glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   //   glMatrixMode(GL_MODELVIEW); //Switch to the drawing perspective
 	// glLoadIdentity(); //Reset the drawing perspective
-	glRotatef(-car_cameraAngle, 0.0, 1.0, 0.0); //Rotate the camera
-	glTranslatef(-3.5, -3.0, -7.0); //Move forward 5 units
+	// glRotatef(-car_cameraAngle, 0.0, 1.0, 0.0); //Rotate the camera
+	// glTranslatef(-3.5, -3.0, -7.0); //Move forward 5 units
 
     glPushMatrix();
       glTranslatef(car_move, 0.0, 0.0);

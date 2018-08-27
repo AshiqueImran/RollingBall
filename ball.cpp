@@ -30,7 +30,6 @@ float getRamdomNum(float min, float max, float step){
 }
 
 
-
 #include "draw_text.cpp"
 
 //Called when the window is resized
@@ -93,7 +92,7 @@ void keyboard(unsigned char key, int x, int y)
 
 #include "scene_and_ball.cpp"
 #include "build_and_roll_objects.cpp"
-// #include "car.cpp"
+#include "car.cpp"
 
 
 //Draws the 3D scene
@@ -175,10 +174,10 @@ int main(int argc, char** argv) {
 
 	glutReshapeFunc(handleResize);
 
-	// glutTimerFunc(10, update, 0); //Add a timer
-	glutTimerFunc(10, updateObjects, 0); //Add a timer
+	glutTimerFunc(15, update, 0); //Add a timer
+	// glutTimerFunc(10, updateObjects, 0); //Add a timer
 
-	// glutTimerFunc(10, updateCar, 0);
+	glutTimerFunc(10, updateCar, 0);
 
     glutKeyboardFunc(keyboard);
 	glutMainLoop();
