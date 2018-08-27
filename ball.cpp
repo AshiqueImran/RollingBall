@@ -4,8 +4,15 @@
 #include <cstdlib>
 #include <ctime>
 
-#include <GL/glu.h>
-#include <GL/glut.h>
+#ifdef __APPLE__
+#  include <OpenGL/gl.h>
+#  include <OpenGL/glu.h>
+#  include <GLUT/glut.h>
+#else
+#  include <GL/gl.h>
+#  include <GL/glu.h>
+#  include <GL/freeglut.h>
+#endif
 
 
 GLint WindowID1;
@@ -43,7 +50,7 @@ void render(float x)
 {
 
 
-	glColor3f(1,1,1);
+	glColor3f(0,0,0);
 	drawStrokeText("Press w or (space)=jump, a=move-left, d=move-right, p=pause, s=start",x);
 	glutPostRedisplay();
 
@@ -1429,7 +1436,7 @@ void drawScene() {
 	glRotatef(-_cameraAngle, 0.0, 1.0, 0.0); //Rotate the camera
 	glTranslatef(0.0, 0.0, -7.0); //Move forward 5 units
 
-    if(timeFlagForText<300)
+    if(timeFlagForText<100)
     {
         render(2.5);
     }
@@ -1464,7 +1471,7 @@ void update(int value) {
 
         glutPostRedisplay();
 
-        if(ballUp==1&& timeFlag >= 12)
+        if(ballUp==1 && timeFlag >= 12)
         {
             ballUp=-0.2;
             timeFlag=0;
@@ -1475,7 +1482,7 @@ void update(int value) {
 
     timeFlagForText++;
 
-    glutTimerFunc(25, update, 0);
+    glutTimerFunc(10, update, 0);
 }
 
 //update floating objects
@@ -1486,11 +1493,11 @@ void updateObjects(int value){
 			_obj_color_r = getRamdomNum(-1.0, 1.0, 1.0);
 			_obj_color_g = getRamdomNum(-2.0, 2.0, 1.0);
 			_obj_color_b = getRamdomNum(-2.0, 2.0, 1.0);
-			_obj_pos_y = getRamdomNum(-0.5, -1.5, .5);
-			_obj_radius_in = getRamdomNum(0.1, 0.2, .05);
-			_obj_radius_out = getRamdomNum(0.2, 0.4, .05);
+			_obj_pos_y = getRamdomNum(2.5, -2.0, 1.0);
+			_obj_radius_in = getRamdomNum(0.1, 0.3, .1);
+			_obj_radius_out = getRamdomNum(0.2, 0.5, .1);
 	}
-	glutTimerFunc(15, updateObjects, 0);
+	glutTimerFunc(10, updateObjects, 0);
 }
 
 int main(int argc, char** argv) {
@@ -1512,8 +1519,8 @@ int main(int argc, char** argv) {
 
 	glutReshapeFunc(handleResize);
 
-	glutTimerFunc(25, update, 0); //Add a timer
-	glutTimerFunc(15, updateObjects, 0); //Add a timer
+	glutTimerFunc(10, update, 0); //Add a timer
+	glutTimerFunc(10, updateObjects, 0); //Add a timer
 
     glutKeyboardFunc(keyboard);
 	glutMainLoop();
