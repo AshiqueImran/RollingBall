@@ -176,7 +176,7 @@ int main(int argc, char** argv) {
 	glutReshapeFunc(handleResize);
 
 	glutTimerFunc(20, update, 0); //Add a timer
-	//
+	// //
 	glutTimerFunc(5, updateCar, 0);
 
     glutKeyboardFunc(keyboard);

@@ -40,6 +40,21 @@ void drawCar() {
             glutSolidSphere(.15 ,20,20);
             glEnd();
         glPopMatrix();
+
+        //car body
+       glBegin(GL_POLYGON);
+       glColor3f(0.0, 0.0, 0.0);
+       //line 1
+       glVertex3f(0.15, 0.3, 0.0);
+       glVertex3f(0.15, 0.7, 0.0);
+       // glEnd();
+       //
+       // glBegin(GL_LINES);
+        //line 2
+        glVertex3f(0.15, 0.7, 0.0);
+        glVertex3f(0.60, 0.3, 0.0);
+      glEnd();
+
     glPopMatrix();
 }
 
