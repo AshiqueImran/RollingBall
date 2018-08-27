@@ -5,7 +5,7 @@ void buildSceneAndBall() {
 		glRotatef(90,1,0,0);
 		glRotatef(_angle,0,1,0);
 		glColor3f(0,1,0);
-		glutSolidSphere(.4 ,20,20);
+		glutSolidSphere(.3 ,20,20);
 		glPopMatrix();
 
 		glPushMatrix();

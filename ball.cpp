@@ -23,9 +23,9 @@ void initRendering() {
 
 //random number generator
 float getRamdomNum(float min, float max, float step){
-	srand(time(0));
+	srand(time(0) * 50000);
 	float range = (max - min);
-	float rand_num = min + float((range * rand()) / (RAND_MAX +  step));
+	float rand_num = min + float((range * rand()) / (RAND_MAX + step));
 	return rand_num;
 }
 
@@ -77,9 +77,9 @@ void keyboard(unsigned char key, int x, int y)
     }
     else if(key=='w' || key==' ')
     {
-        if(ballUp != 1)
+        if(ballUp != 2)
         {
-            ballUp=1;
+            ballUp=2;
             timeFlag=0;
             glutPostRedisplay();
         }
@@ -91,7 +91,7 @@ void keyboard(unsigned char key, int x, int y)
 }
 
 #include "scene_and_ball.cpp"
-#include "build_and_roll_objects.cpp"
+// #include "build_and_roll_objects.cpp"
 #include "car.cpp"
 
 
@@ -107,11 +107,12 @@ void drawScene() {
     {
         render(2.5);
     }
+		drawCar();
 
 		//buildlings, road, ball
 		buildSceneAndBall();
 
-		// drawCar();
+
 		//build objects and roll 'em
 		// buildAndRollObjects();
 
@@ -139,7 +140,7 @@ void update(int value) {
 
         glutPostRedisplay();
 
-        if(ballUp==1 && timeFlag >= 12)
+        if(ballUp==2 && timeFlag >= 12)
         {
             ballUp=-0.2;
             timeFlag=0;
@@ -174,10 +175,9 @@ int main(int argc, char** argv) {
 
 	glutReshapeFunc(handleResize);
 
-	glutTimerFunc(15, update, 0); //Add a timer
-	// glutTimerFunc(10, updateObjects, 0); //Add a timer
-
-	glutTimerFunc(10, updateCar, 0);
+	glutTimerFunc(20, update, 0); //Add a timer
+	//
+	glutTimerFunc(5, updateCar, 0);
 
     glutKeyboardFunc(keyboard);
 	glutMainLoop();
