@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <cstdlib>
+// #include <windows.h>
+// #include <mmsystem.h>
 #include <ctime>
 
 #ifdef __APPLE__
@@ -14,13 +16,18 @@
 #  include <GL/freeglut.h>
 #endif
 
+#include <irrKlang.h>
+using namespace irrklang;
+
+ISoundEngine* engine = createIrrKlangDevice();
+
 GLint WindowID1;
 //Initializes 3D rendering
 void initRendering() {
 	glEnable(GL_DEPTH_TEST);
 }
 
-
+int hitCount = 0;
 //random number generator
 float getRamdomNum(float min, float max, float step){
 	srand(time(0) * 50000);
@@ -63,7 +70,7 @@ void keyboard(unsigned char key, int x, int y)
     {
         if(ballPlace>-3)
         {
-           ballPlace=ballPlace-1;
+           ballPlace = ballPlace-1;
            glutPostRedisplay();
         }
     }
@@ -71,11 +78,11 @@ void keyboard(unsigned char key, int x, int y)
     {
         if(ballPlace<3)
         {
-           ballPlace=ballPlace+1;
+           ballPlace = ballPlace+1;
            glutPostRedisplay();
         }
     }
-    else if(key=='w' || key==' ')
+    else if(key==' ')
     {
         if(ballUp != 2)
         {
@@ -84,16 +91,32 @@ void keyboard(unsigned char key, int x, int y)
             glutPostRedisplay();
         }
     }
+		else if(key=='w')
+		{
+				if(ballUp != -0.2)
+				{
+						ballUp=-0.2;
+						timeFlag=0;
+						glutPostRedisplay();
+				}
+		}
 		else if (key == 'x') {
+			if(ballUp != -1.0){
+				ballUp = -1.0;
+				timeFlag=0;
+				glutPostRedisplay();
+			}
+		}
+		else if (key == 'q') {
 			glutDestroyWindow(WindowID1);
 		}
 
 }
-
-#include "scene_and_ball.cpp"
-// #include "build_and_roll_objects.cpp"
 #include "car.cpp"
 #include "car2.cpp"
+#include "scene_and_ball.cpp"
+// #include "build_and_roll_objects.cpp"
+
 //Draws the 3D scene
 void drawScene() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -101,6 +124,18 @@ void drawScene() {
 	glLoadIdentity(); //Reset the drawing perspective
 	glRotatef(-_cameraAngle, 0.0, 1.0, 0.0); //Rotate the camera
 	glTranslatef(0.0, 0.0, -7.0); //Move forward 5 units
+
+
+	// detect collisions
+	// && (car_move_y > (ballUp - 0.1) && car_move_y < (ballUp + 0.1))
+	if((car_move_x > 0.0 && car_move_x < 0.1) && (ballUp > -0.5 && ballUp < 0.0)){
+		hitCount++;
+		engine->play2D("beep-01.wav");
+		// std::cout<<"hit count: "<<hitCount<<std::endl;
+		// std::cout<<"ballPlace: "<<ballUp<<std::endl;
+		// std::cout<<"car: "<<car_move_y<<std::endl;
+		//
+	}
 
     if(timeFlagForText<100)
     {
@@ -165,7 +200,7 @@ int main(int argc, char** argv) {
 
 	//Create the window
 	WindowID1 = glutCreateWindow("Transformations");
-	glutFullScreen();
+	// glutFullScreen();
 
 	initRendering();
 

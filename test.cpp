@@ -50,25 +50,12 @@ void update(int value) {
 	if (_angle > 360) {
 		_angle -= 360;
 	}
-	    /*
-	_ang_tri += 2.0f;
-	if (_ang_tri > 360) {
-		_ang_tri -= 360;
-	}
-	*/
-
-    // car_move += 0.01f;
-    // if(car_move > 5.0){
-    //     car_move = -3.2;
-    // }
-
     _move_o1 += 0.04f;
     if(_move_o1 > 5.0){
         _move_o1 = -3.2;
     }
-	glutPostRedisplay(); //Tell GLUT that the display has changed
+	glutPostRedisplay(); 
 
-	//Tell GLUT to call update again in 25 milliseconds
 	glutTimerFunc(20, update, 0);
 }
 
