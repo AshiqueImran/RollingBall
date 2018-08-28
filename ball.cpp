@@ -36,7 +36,6 @@ float getRamdomNum(float min, float max, float step){
 	return rand_num;
 }
 
-
 #include "draw_text.cpp"
 
 //Called when the window is resized
@@ -53,7 +52,7 @@ float _ang_tri = 0.0;
 float pixel=0,ballPlace=0,ballUp=-0.2;
 int wSize=600,gameOn=1,timeFlag,timeFlagForText=0;
 
-
+int lifeLimit = 5;
 void keyboard(unsigned char key, int x, int y)
 {
     if(key=='s')
@@ -110,10 +109,10 @@ void keyboard(unsigned char key, int x, int y)
 		else if (key == 'q') {
 			glutDestroyWindow(WindowID1);
 		}
-
 }
 #include "car.cpp"
 #include "car2.cpp"
+#include "life.cpp"
 #include "scene_and_ball.cpp"
 // #include "build_and_roll_objects.cpp"
 
@@ -129,7 +128,7 @@ void drawScene() {
 	// detect collisions
 	// && (car_move_y > (ballUp - 0.1) && car_move_y < (ballUp + 0.1))
 	if((car_move_x > 0.0 && car_move_x < 0.1) && (ballUp > -0.5 && ballUp < 0.0)){
-		hitCount++;
+		lifeLimit--;
 		engine->play2D("beep-01.wav");
 		// std::cout<<"hit count: "<<hitCount<<std::endl;
 		// std::cout<<"ballPlace: "<<ballUp<<std::endl;
@@ -143,6 +142,9 @@ void drawScene() {
     }
 		drawCar1();
 		drawCar2();
+		for(float i=lifeLimit;i>=0;i--){
+			drawLife(i*0.4);
+		}
 		//buildlings, road, ball
 		buildSceneAndBall();
 
@@ -200,7 +202,7 @@ int main(int argc, char** argv) {
 
 	//Create the window
 	WindowID1 = glutCreateWindow("Transformations");
-	// glutFullScreen();
+	glutFullScreen();
 
 	initRendering();
 
