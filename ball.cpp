@@ -113,8 +113,8 @@ void keyboard(unsigned char key, int x, int y)
 #include "car.cpp"
 #include "car2.cpp"
 #include "life.cpp"
+#include "rocket.cpp"
 #include "scene_and_ball.cpp"
-// #include "build_and_roll_objects.cpp"
 
 //Draws the 3D scene
 void drawScene() {
@@ -124,34 +124,25 @@ void drawScene() {
 	glRotatef(-_cameraAngle, 0.0, 1.0, 0.0); //Rotate the camera
 	glTranslatef(0.0, 0.0, -7.0); //Move forward 5 units
 
-
 	// detect collisions
-	// && (car_move_y > (ballUp - 0.1) && car_move_y < (ballUp + 0.1))
 	if((car_move_x > 0.0 && car_move_x < 0.1) && (ballUp > -0.5 && ballUp < 0.0)){
 		lifeLimit--;
 		engine->play2D("beep-01.wav");
-		// std::cout<<"hit count: "<<hitCount<<std::endl;
-		// std::cout<<"ballPlace: "<<ballUp<<std::endl;
-		// std::cout<<"car: "<<car_move_y<<std::endl;
-		//
 	}
 
     if(timeFlagForText<100)
     {
         render(2.5);
     }
+
 		drawCar1();
 		drawCar2();
+		drawRocket();
 		for(float i=lifeLimit;i>=0;i--){
 			drawLife(i*0.4);
 		}
-		//buildlings, road, ball
+
 		buildSceneAndBall();
-
-
-		//build objects and roll 'em
-		// buildAndRollObjects();
-
 	glutSwapBuffers();
 }
 
@@ -214,6 +205,8 @@ int main(int argc, char** argv) {
 	glutTimerFunc(20, update, 0); //Add a timer
 	glutTimerFunc(5, updateCar, 0);
 	glutTimerFunc(10, updateCar2, 0);
+	glutTimerFunc(15, updateRocket, 0);
+
 
     glutKeyboardFunc(keyboard);
 	glutMainLoop();

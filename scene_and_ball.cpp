@@ -1,4 +1,5 @@
 void buildSceneAndBall() {
+
 		//ball
 		glPushMatrix();
 		glTranslatef(ballPlace,ballUp,0);
