@@ -1,13 +1,16 @@
 float rocket_move_x = -7.0;
 float rocket_move_y = -.3;
 
+float _rocket_color_r = 1.0;
+float _rocket_color_g = 0.0;
+float _rocket_color_b = 0.0;
 //Draws the 3D scene
 void drawRocket() {
 	glPushMatrix();
 		glTranslatef(rocket_move_x, rocket_move_y, 0.0);
 		glScalef(0.8,0.8,0.8);
 	  // plane body
-	  glColor3f(0.0, 0.5, 0.0);
+	  glColor3f(_rocket_color_b, _rocket_color_g, _rocket_color_r);
 	  glBegin(GL_POLYGON);
 	  glVertex3f(0.5,2.4,0);
 	  glVertex3f(1.5,2.4,0);
@@ -59,7 +62,10 @@ void updateRocket(int value) {
     rocket_move_x += 0.13f;
     if(rocket_move_x > 15.0){
         rocket_move_x = -15.0;
-				rocket_move_y = getRamdomNum(-.1, -1.0, .1);
+				rocket_move_y = getRamdomNum(-.5, -1.5, .5);
+				_rocket_color_r = getRamdomNum(-2.0, 2.0, .5);
+  			_rocket_color_g = getRamdomNum(-2.0, 2.0, .5);
+  			_rocket_color_b = getRamdomNum(-2.0, 2.0, .5);
     }
 
 	glutPostRedisplay();

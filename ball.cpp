@@ -52,7 +52,7 @@ float _ang_tri = 0.0;
 float pixel=0,ballPlace=0,ballUp=-0.2;
 int wSize=600,gameOn=1,timeFlag,timeFlagForText=0;
 
-int lifeLimit = 5;
+int lifeLimit = 3;
 void keyboard(unsigned char key, int x, int y)
 {
     if(key=='s')
@@ -114,36 +114,53 @@ void keyboard(unsigned char key, int x, int y)
 #include "car2.cpp"
 #include "life.cpp"
 #include "rocket.cpp"
+#include "game_over.cpp"
 #include "scene_and_ball.cpp"
 
 //Draws the 3D scene
 void drawScene() {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glMatrixMode(GL_MODELVIEW); //Switch to the drawing perspective
-	glLoadIdentity(); //Reset the drawing perspective
-	glRotatef(-_cameraAngle, 0.0, 1.0, 0.0); //Rotate the camera
-	glTranslatef(0.0, 0.0, -7.0); //Move forward 5 units
-
-	// detect collisions
-	if((car_move_x > 0.0 && car_move_x < 0.1) && (ballUp > -0.5 && ballUp < 0.0)){
-		lifeLimit--;
-		engine->play2D("beep-01.wav");
+	if(lifeLimit <= 0){
+		drawGameOver();
+	} else {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glMatrixMode(GL_MODELVIEW); //Switch to the drawing perspective
+		glLoadIdentity(); //Reset the drawing perspective
+		glRotatef(-_cameraAngle, 0.0, 1.0, 0.0); //Rotate the camera
+		glTranslatef(0.0, 0.0, -7.0); //Move forward 5 units
 	}
+
+	// detect collisions for car (up)
+	if (lifeLimit > 0) {
+		if((car_move_x > 0.0 && car_move_x < 0.1) && (ballUp > -0.5 && ballUp < 0.0)){
+			lifeLimit--;
+			engine->play2D("beep-01.wav");
+		}
+
+		if(ballUp == -1 && (car_move_x > 1.4 && car_move_x < 1.5)){
+			lifeLimit--;
+			engine->play2D("beep-01.wav");
+		}
+}
+
+
 
     if(timeFlagForText<100)
     {
         render(2.5);
     }
 
-		drawCar1();
-		drawCar2();
-		drawRocket();
-		for(float i=lifeLimit;i>=0;i--){
-			drawLife(i*0.4);
-		}
+		if(lifeLimit > 0){
 
-		buildSceneAndBall();
-	glutSwapBuffers();
+			drawCar1();
+			drawCar2();
+			drawRocket();
+			for(float i=lifeLimit;i>=0;i--){
+				drawLife(i*0.4);
+			}
+			buildSceneAndBall();
+			glutSwapBuffers();
+
+	}
 }
 
 void update(int value) {
@@ -206,7 +223,10 @@ int main(int argc, char** argv) {
 	glutTimerFunc(5, updateCar, 0);
 	glutTimerFunc(10, updateCar2, 0);
 	glutTimerFunc(15, updateRocket, 0);
+	glutTimerFunc(25, updateGameOver, 0);
 
+
+	engine->play2D("background.wav", true);
 
     glutKeyboardFunc(keyboard);
 	glutMainLoop();
