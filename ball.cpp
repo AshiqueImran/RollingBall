@@ -52,7 +52,7 @@ float _ang_tri = 0.0;
 float pixel=0,ballPlace=0,ballUp=-0.2;
 int wSize=600,gameOn=1,timeFlag,timeFlagForText=0;
 
-int lifeLimit = 3;
+int lifeLimit = 10;
 void keyboard(unsigned char key, int x, int y)
 {
     if(key=='s')
@@ -129,20 +129,18 @@ void drawScene() {
 		glTranslatef(0.0, 0.0, -7.0); //Move forward 5 units
 	}
 
+
 	// detect collisions for car (up)
-	if (lifeLimit > 0) {
-		if((car_move_x > 0.0 && car_move_x < 0.1) && (ballUp > -0.5 && ballUp < 0.0)){
+		if((car_move_x > 0.0 && car_move_x < 0.09) && (ballUp < 0.0 && ballUp > -0.3)){
+			std::cout<<ballUp<<std::endl;
 			lifeLimit--;
 			engine->play2D("beep-01.wav");
 		}
 
-		if(ballUp == -1 && (car_move_x > 1.4 && car_move_x < 1.5)){
+		else if(ballUp == -1 && (car_move_x > 1.4 && car_move_x < 1.5)){
 			lifeLimit--;
 			engine->play2D("beep-01.wav");
 		}
-}
-
-
 
     if(timeFlagForText<100)
     {
@@ -150,7 +148,6 @@ void drawScene() {
     }
 
 		if(lifeLimit > 0){
-
 			drawCar1();
 			drawCar2();
 			drawRocket();
@@ -159,8 +156,7 @@ void drawScene() {
 			}
 			buildSceneAndBall();
 			glutSwapBuffers();
-
-	}
+		}
 }
 
 void update(int value) {
@@ -210,7 +206,7 @@ int main(int argc, char** argv) {
 
 	//Create the window
 	WindowID1 = glutCreateWindow("Transformations");
-	glutFullScreen();
+	//glutFullScreen();
 
 	initRendering();
 
