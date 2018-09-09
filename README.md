@@ -3,14 +3,14 @@
 
 ## Preview
 
-**Avoiding obstacles ** <br />
+**Avoiding obstacles**
 ![pic1](https://user-images.githubusercontent.com/23379542/45268764-8fcc4d00-b4a3-11e8-9e5f-a0ec282749da.png)
 **Collision**
 ![pic2](https://user-images.githubusercontent.com/23379542/45268785-01a49680-b4a4-11e8-8a86-51c562f7207a.png)
 **Game over**
 ![pic3](https://user-images.githubusercontent.com/23379542/45268790-1b45de00-b4a4-11e8-827c-3160d73c1dc5.jpg)
 
-##How to play
+## How to play
 
 Keyboard events:
 - *p* to pause the game
@@ -24,9 +24,9 @@ Keyboard events:
 
 ## Technology Used
 
--[C++](https://en.wikipedia.org/wiki/C%2B%2B)
--[OpenGL](https://en.wikipedia.org/wiki/OpenGL)
--[Shell Scripting](https://www.shellscript.sh/)
+- [C++](https://en.wikipedia.org/wiki/C%2B%2B)
+- [OpenGL](https://en.wikipedia.org/wiki/OpenGL)
+- [Shell Scripting](https://www.shellscript.sh/)
 
 ## Contribute
 
